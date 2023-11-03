@@ -1,19 +1,15 @@
 # Stage 1. Install dependencies
-FROM node:14-alpine as install
-WORKDIR /app
+FROM node:lts-alpine as install
 COPY app/package*.json .
 RUN npm i
 
 # Stage 2. Build app
-FROM node:14-alpine as build
-WORKDIR /app
-COPY --from=install /app/node_modules ./node_modules
+FROM node:lts-alpine as build
+COPY --from=install ./node_modules ./node_modules
 COPY app/ .
 RUN npm run build
 
-# Stage 3. Run
-FROM node:14-alpine
-WORKDIR /app
-COPY --from=build /app/build ./build
-RUN npm install -g serve
-CMD ["serve", "-s", "build", "-l", "3000"]
+# Stage 3. Run app with busybox
+FROM busybox:stable-musl
+COPY --from=build ./build .
+CMD ["busybox", "httpd", "-f", "-v", "-p", "3000"]
