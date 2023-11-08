@@ -1,0 +1,10 @@
+variable "cluster_name" {}
+variable "service_name" {}
+variable "desired_count" {}
+variable "task_execution_role_arn" {}
+variable "target_group_arn" {}
+variable "subnets" {}
+variable "security_groups" {}
+variable "image" {}
+variable "app_port" {}
+variable "awslog_region" {}

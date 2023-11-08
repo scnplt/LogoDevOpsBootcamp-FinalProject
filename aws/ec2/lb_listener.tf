@@ -1,6 +1,6 @@
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.applb.arn
-  port              = "80"
+  port              = var.public_port
   protocol          = "HTTP"
 
   default_action {
