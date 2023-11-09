@@ -8,7 +8,7 @@ variables:
   REPO_URL: $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$REPO_NAME
   IMAGE_NAME_WITH_TAG: $REPO_URL:$IMAGE_TAG
 
-build:
+run:
   stage: build
   image: node:lts-alpine
   script:
@@ -20,10 +20,10 @@ build:
       - $CI_PROJECT_DIR/app/build
     expire_in: 1 week
 
-deploy:
-  stage: deploy
+docker_image:
+  stage: build
   image: docker:stable
-  needs: ['build']
+  needs: [run]
   services:
     - docker:dind
   before_script:
@@ -34,5 +34,4 @@ deploy:
   script:
     - docker build -t $IMAGE_NAME_WITH_TAG .
     - docker push $IMAGE_NAME_WITH_TAG
-  only:
-    - main
+  when: manual
