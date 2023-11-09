@@ -1,7 +1,7 @@
 # Task Definition
 resource "aws_ecs_task_definition" "appservice" {
   family                   = "apptaskdefinition"
-  execution_role_arn       = "arn:aws:iam::${var.accountID}:role/ecsTaskExecutionRole"
+  execution_role_arn       = var.executionRoleArn
   network_mode             = "awsvpc"
   requires_compatibilities = ["FARGATE"]
   cpu                      = "1024"

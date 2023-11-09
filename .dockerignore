@@ -1,8 +1,0 @@
-**/node_modules
-**/build
-**/README.md
-**/.gitignore
-.dockerignore
-Dockerfile
-aws/
-k8s/

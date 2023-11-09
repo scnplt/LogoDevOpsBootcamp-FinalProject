@@ -1,7 +1,7 @@
 variable "clusterName" { type = string }
 
 variable "containerName" { type = string }
-variable "accountID" { type = number }
+variable "executionRoleArn" { type = string }
 variable "imageURL" { type = string }
 variable "containerPort" { type = number }
 
