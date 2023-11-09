@@ -14,13 +14,13 @@ resource "aws_ecs_task_definition" "appservice" {
 
   container_definitions = jsonencode([
     {
-      name = var.containerName
+      name  = var.containerName
       image = var.imageURL
-      cpu = 0
+      cpu   = 0
       portMappings = [
         {
           containerPort = var.containerPort
-          hostPort = var.containerPort
+          hostPort      = var.containerPort
         }
       ]
       essential = true

@@ -5,14 +5,14 @@ resource "aws_internet_gateway" "main" {
 
 # Subnets
 resource "aws_subnet" "public-subnet1" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = cidrsubnet(var.vpcCidrBlock, 8, 1)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(var.vpcCidrBlock, 8, 1)
   availability_zone = "${var.region}a"
 }
 
 resource "aws_subnet" "public-subnet2" {
-  vpc_id     = aws_vpc.main.id
-  cidr_block = cidrsubnet(var.vpcCidrBlock, 8, 2)
+  vpc_id            = aws_vpc.main.id
+  cidr_block        = cidrsubnet(var.vpcCidrBlock, 8, 2)
   availability_zone = "${var.region}b"
 }
 

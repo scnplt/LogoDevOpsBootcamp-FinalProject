@@ -3,8 +3,8 @@ resource "aws_lb" "apploadbalancer" {
   name               = "apploadbalancer"
   internal           = false
   load_balancer_type = "application"
-  security_groups    = [ aws_security_group.loadbalancer.id ]
-  subnets            = [ aws_subnet.public-subnet1.id, aws_subnet.public-subnet2.id ]
+  security_groups    = [aws_security_group.loadbalancer.id]
+  subnets            = [aws_subnet.public-subnet1.id, aws_subnet.public-subnet2.id]
 }
 
 # Load balancer listener
