@@ -19,5 +19,7 @@ resource "aws_ecs_service" "appservice" {
     assign_public_ip = true
   }
 
-  depends_on = [aws_ecs_cluster.main, aws_ecs_task_definition.appservice]
+  lifecycle {
+    ignore_changes = [desired_count]
+  }
 }
