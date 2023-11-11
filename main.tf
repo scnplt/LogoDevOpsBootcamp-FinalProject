@@ -61,4 +61,9 @@ module "cloudwatch" {
   serviceName       = var.serviceName
   scaleInPolicyArn  = module.autoscaling.scaleInPolicyArn
   scaleOutPolicyArn = module.autoscaling.scaleOutPolicyArn
+
+  dashboardName         = "${var.clusterName}Dashboard"
+  region                = var.region
+  dashboardPeriod       = 30
+  loadBalancerArnSuffix = module.ec2.loadBalancerArnSuffix
 }

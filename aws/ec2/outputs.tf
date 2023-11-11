@@ -9,3 +9,7 @@ output "lbTargetGroupArn" {
 output "appSecurityGroupIDs" {
   value = [aws_security_group.app.id]
 }
+
+output "loadBalancerArnSuffix" {
+  value = aws_lb.apploadbalancer.arn_suffix
+}

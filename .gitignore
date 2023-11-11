@@ -11,3 +11,6 @@
 
 .terraform.lock.hcl
 **/terraform.tfvars
+
+plan.json
+plan.out
