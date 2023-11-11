@@ -1,3 +1,4 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb
 # Load balancer
 resource "aws_lb" "apploadbalancer" {
   name               = "apploadbalancer"
@@ -7,6 +8,7 @@ resource "aws_lb" "apploadbalancer" {
   subnets            = [aws_subnet.public-subnet1.id, aws_subnet.public-subnet2.id]
 }
 
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_listener
 # Load balancer listener
 resource "aws_lb_listener" "front_end" {
   load_balancer_arn = aws_lb.apploadbalancer.arn

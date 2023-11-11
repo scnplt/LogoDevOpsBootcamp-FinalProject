@@ -1,3 +1,6 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/appautoscaling_policy
+# AWS       : https://docs.aws.amazon.com/autoscaling/ec2/userguide/as-scaling-simple-step.html#step-scaling-policies-aws-cli
+# Auto Scaling Policies
 resource "aws_appautoscaling_policy" "scaleInPolicy" {
   name               = "ScaleInPolicy"
   policy_type        = "StepScaling"

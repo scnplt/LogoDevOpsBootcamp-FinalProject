@@ -1,3 +1,6 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/cloudwatch_metric_alarm
+# AWS       : https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/AlarmThatSendsEmail.html
+# Metric alarms for scaling in and out
 resource "aws_cloudwatch_metric_alarm" "scaleInCPUBelow20" {
   alarm_name          = "ScaleIn"
   comparison_operator = "LessThanOrEqualToThreshold"

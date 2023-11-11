@@ -1,3 +1,4 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/lb_target_group
 # Load balancer target group
 resource "aws_lb_target_group" "apptargetgroup" {
   vpc_id          = aws_vpc.main.id

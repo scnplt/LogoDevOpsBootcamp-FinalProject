@@ -1,3 +1,4 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/ecs_service
 # Service definition
 resource "aws_ecs_service" "appservice" {
   name                = var.serviceName

@@ -1,3 +1,4 @@
+# Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/security_group
 # Load balancer security group
 resource "aws_security_group" "loadbalancer" {
   name        = "LBSecurityGroup"
