@@ -1,0 +1,21 @@
+---
+- name: Check disk usage
+  hosts: localhost
+  gather_facts: true
+  vars_files:
+    - vars.yml
+  tasks:
+    - name: Get disk usage
+      ansible.builtin.shell: df -h / | awk 'NR==2 {print $5}' | tr -d '%'
+      register: disk_usage_percent
+
+    - name: Send mail
+      ansible.builtin.mail:
+        host: "smtp.gmail.com"
+        port: 587
+        username: "{{ sender_address }}"
+        password: "{{ sender_password }}"
+        to: "{{ receiver_address }}"
+        subject: "Disk Usage Alert"
+        body: "Disk usage is high: {{ disk_usage_percent.stdout }}"
+      when: disk_usage_percent.stdout | int > 90
