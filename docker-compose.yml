@@ -1,0 +1,8 @@
+version: "3"
+services:
+  reactapp:
+    build: .
+    container_name: reactapp
+    image: scnplt/reactapp:v1
+    ports:
+      - 80:3000
