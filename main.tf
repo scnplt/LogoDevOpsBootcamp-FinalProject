@@ -22,8 +22,13 @@ provider "aws" {
 }
 
 # Modules
+module "iam" {
+  source = "./aws/iam"
+}
+
 module "ec2" {
-  source        = "./aws/ec2"
+  source = "./aws/ec2"
+
   vpcCidrBlock  = "10.0.0.0/16"
   vpcName       = "LogoVPC"
   region        = var.region
@@ -32,10 +37,11 @@ module "ec2" {
 }
 
 module "ecs" {
-  source              = "./aws/ecs"
+  source = "./aws/ecs"
+
   clusterName         = var.clusterName
   containerName       = "app-container"
-  executionRoleArn    = "arn:aws:iam::${var.accountID}:role/ecsTaskExecutionRole"
+  executionRoleArn    = module.iam.ecsTaskExecutionRoleArn
   imageURL            = var.imageURL
   containerPort       = var.containerPort
   serviceName         = var.serviceName
@@ -43,27 +49,31 @@ module "ecs" {
   lbTargetGroupArn    = module.ec2.lbTargetGroupArn
   publicSubnetIDs     = module.ec2.publicSubnetIDs
   appSecurityGroupIDs = module.ec2.appSecurityGroupIDs
-  depends_on          = [module.ec2]
 }
 
 module "autoscaling" {
-  source      = "./aws/autoscaling"
-  clusterName = var.clusterName
-  serviceName = var.serviceName
-  maxCapacity = 4
-  minCapacity = 1
-  depends_on  = [module.ecs]
+  source = "./aws/autoscaling"
+
+  clusterName         = var.clusterName
+  serviceName         = var.serviceName
+  maxCapacity         = 4
+  minCapacity         = 1
+  ecsAutoscaleRoleArn = module.iam.ecsAutoscaleRoleArn
+
+  depends_on = [module.ecs]
 }
 
 module "cloudwatch" {
-  source            = "./aws/cloudwatch"
-  clusterName       = var.clusterName
-  serviceName       = var.serviceName
-  scaleInPolicyArn  = module.autoscaling.scaleInPolicyArn
-  scaleOutPolicyArn = module.autoscaling.scaleOutPolicyArn
+  source = "./aws/cloudwatch"
 
+  clusterName           = var.clusterName
+  serviceName           = var.serviceName
+  scaleInPolicyArn      = module.autoscaling.scaleInPolicyArn
+  scaleOutPolicyArn     = module.autoscaling.scaleOutPolicyArn
   dashboardName         = "${var.clusterName}Dashboard"
   region                = var.region
   dashboardPeriod       = 30
   loadBalancerArnSuffix = module.ec2.loadBalancerArnSuffix
+
+  depends_on = [module.ecs]
 }
