@@ -1,3 +1,5 @@
+# Multistage Dockerfile for reduce image size
+
 # Stage 1. Install dependencies
 # Generate a "node_modules" folder with npm for the next stages
 FROM node:lts-alpine as install
