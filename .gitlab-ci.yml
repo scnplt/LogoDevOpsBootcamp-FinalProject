@@ -31,7 +31,6 @@ npm_run:
 # Validate the Terraform configuration
 terraform_validate:
   stage: validate
-  needs: [npm_run]
   script:
     - gitlab-terraform validate
 
