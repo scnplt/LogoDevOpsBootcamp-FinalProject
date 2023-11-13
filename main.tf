@@ -31,7 +31,6 @@ module "ec2" {
 
   vpcCidrBlock  = "10.0.0.0/16"
   vpcName       = "LogoVPC"
-  region        = var.region
   publicPort    = 80
   containerPort = var.containerPort
 }

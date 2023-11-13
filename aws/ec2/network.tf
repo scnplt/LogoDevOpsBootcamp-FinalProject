@@ -4,19 +4,33 @@ resource "aws_internet_gateway" "main" {
   vpc_id = aws_vpc.main.id
 }
 
+# Terraform: https://registry.terraform.io/providers/hashicorp/aws/latest/docs/data-sources/availability_zones
+# Availability Zones (e.g. us-east-1a, us-east-1b, us-east-1c)
+data "aws_availability_zones" "available" {
+  state = "available"
+}
+
 # Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/subnet
 # Subnets
 resource "aws_subnet" "public-subnet1" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(var.vpcCidrBlock, 8, 1)
-  availability_zone = "${var.region}a"
+  availability_zone = data.aws_availability_zones.available.names[0]
+
+  tags = {
+    Name = "public-subnet1"
+  }
 }
 
 
 resource "aws_subnet" "public-subnet2" {
   vpc_id            = aws_vpc.main.id
   cidr_block        = cidrsubnet(var.vpcCidrBlock, 8, 2)
-  availability_zone = "${var.region}b"
+  availability_zone = data.aws_availability_zones.available.names[1]
+
+  tags = {
+    Name = "public-subnet2"
+  }
 }
 
 # Terraform : https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/route_table.html
